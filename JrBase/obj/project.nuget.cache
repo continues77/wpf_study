@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "CsK8ITtVxVVF5l4sXqqertEYA3w2AIRQvzul6iWpss/K39XlVjCLXpxpZxxwfEV4XhBuIsA9/jzFsu8hlhGO2g==",
+  "success": true,
+  "projectFilePath": "D:\\10.Study\\study\\JrBase\\JrBase\\JrBase.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Hanku\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\6.0.0\\microsoft.extensions.dependencyinjection.6.0.0.nupkg.sha512",
+    "C:\\Users\\Hanku\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\Hanku\\.nuget\\packages\\microsoft.toolkit.mvvm\\7.1.2\\microsoft.toolkit.mvvm.7.1.2.nupkg.sha512",
+    "C:\\Users\\Hanku\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.39\\microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512",
+    "C:\\Users\\Hanku\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

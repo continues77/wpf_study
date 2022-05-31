@@ -1,0 +1,251 @@
+﻿<Window x:Class="JrBase.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:behaviors="clr-namespace:JrBase.Views.Behaviors"
+        xmlns:local="clr-namespace:JrBase"
+        xmlns:appComm="clr-namespace:JrBase.AppComm"
+        mc:Ignorable="d"        
+        Title="MainWindow"
+        Name="TopWindow"
+        Width="1920"
+        Height="1000"        
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"  
+        Background="#FF151515"
+        WindowStyle="None"
+        ResizeMode="NoResize">
+    <Window.Resources>
+        <!--사이드바 바인딩 정의-->
+        <appComm:LeftPanelDimensionsConverter x:Key="LeftPanelConverter" />
+        <appComm:RightPanelDimensionsConverter x:Key="RightPanelConverter" />
+        <appComm:LeftPanelMarginConverter x:Key="LeftMarginConverter" />
+        <appComm:RightPanelMarginConverter x:Key="RightMarginConverter" />
+
+        <!--사이드바 동작 StoryBoard 정의-->
+        <Storyboard x:Key="OpenLeftSideBar"
+                    TargetProperty="RenderTransform.(TranslateTransform.X)"
+                    AccelerationRatio=".4"
+                    DecelerationRatio=".4">
+            <DoubleAnimation Storyboard.TargetName="LeftsidePanel" Duration="0:0:0.2" From="0">
+                <DoubleAnimation.To>
+                    <MultiBinding Converter="{StaticResource LeftPanelConverter}">
+                        <Binding Mode="OneWay" ElementName="LeftPropertiesPanel" Path="Width" />
+                    </MultiBinding>
+                </DoubleAnimation.To>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <Storyboard x:Key="CloseLeftSideBar"
+                    TargetProperty="RenderTransform.(TranslateTransform.X)"
+                    AccelerationRatio=".4"
+                    DecelerationRatio=".4">
+            <DoubleAnimation Storyboard.TargetName="LeftsidePanel" Duration="0:0:0.1" To="0">
+                <DoubleAnimation.From>
+                    <MultiBinding Converter="{StaticResource LeftPanelConverter}">
+                        <Binding Mode="OneWay" ElementName="LeftPropertiesPanel" Path="Width" />
+                    </MultiBinding>
+                </DoubleAnimation.From>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <Storyboard x:Key="OpenRightSideBar"
+                    TargetProperty="RenderTransform.(TranslateTransform.X)"
+                    AccelerationRatio=".4"
+                    DecelerationRatio=".4">
+            <DoubleAnimation Storyboard.TargetName="RightsidePanel" Duration="0:0:0.2" From="0">
+                <DoubleAnimation.To>
+                    <MultiBinding Converter="{StaticResource RightPanelConverter}">
+                        <Binding Mode="OneWay" ElementName="RightPropertiesPanel" Path="Width" />
+                    </MultiBinding>
+                </DoubleAnimation.To>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <Storyboard x:Key="CloseRightSideBar"
+                    TargetProperty="RenderTransform.(TranslateTransform.X)"
+                    AccelerationRatio=".4"
+                    DecelerationRatio=".4">
+            <DoubleAnimation Storyboard.TargetName="RightsidePanel" Duration="0:0:0.1" To="0">
+                <DoubleAnimation.From>
+                    <MultiBinding Converter="{StaticResource RightPanelConverter}">
+                        <Binding Mode="OneWay" ElementName="RightPropertiesPanel" Path="Width" />
+                    </MultiBinding>
+                </DoubleAnimation.From>
+            </DoubleAnimation>
+        </Storyboard>
+    </Window.Resources>
+    
+    <Grid>        
+        <Grid>
+            <Grid.RowDefinitions>
+                <!-- 상단 정보창 -->
+                <RowDefinition Height="0.09*"/>
+                <!-- UI -->
+                <RowDefinition Height="1*"/>
+                <!-- 하단 메뉴창 -->
+                <RowDefinition Height="0.075*"/>
+            </Grid.RowDefinitions>
+
+            <!-- 화면 -->
+            <Grid Grid.Row="1" Background="Black">
+                <Frame NavigationUIVisibility="Hidden"  Background="White">
+                    <b:Interaction.Behaviors>
+                        <behaviors:FrameBehavior NavigationSource="{Binding NavigationSource, Mode=TwoWay}" />
+                    </b:Interaction.Behaviors>
+                </Frame>
+            </Grid>
+
+            <!-- 메인메뉴 -->
+            <Grid Grid.Row="2" Background="Black">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="0.4*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" x:Name="btnSet"
+                        Background="#FF303030" Foreground="WhiteSmoke">
+                    <Image Source="/Images/Setup.png" Stretch="Uniform" Height="60" />
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click" >
+                            <BeginStoryboard Storyboard="{StaticResource OpenLeftSideBar}"/>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button Grid.Column="1" x:Name="btnMain" FontSize="30" FontWeight="Bold"
+                            Background="#FF303030" Foreground="WhiteSmoke"
+                            Content="{Binding Source={StaticResource DR}, Path=[wrd_Main]}"
+                            Command="{Binding NavigateCommand}"
+                            CommandParameter="Views/MainUI/viewMain.xaml">
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <BeginStoryboard Storyboard="{StaticResource CloseLeftSideBar}"/>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Button Grid.Column="2" x:Name="btnStart" FontSize="30" FontWeight="Bold"
+                            Background="#FF303030" Foreground="WhiteSmoke"
+                            Content="{Binding Source={StaticResource DR}, Path=[wrd_Start]}"
+                            Command="{Binding ButtonCommand}"
+                            CommandParameter="START"/>
+                <Button Grid.Column="3" x:Name="btnStop" FontSize="30" FontWeight="Bold"
+                            Background="#FF303030" Foreground="WhiteSmoke"
+                            Content="{Binding Source={StaticResource DR}, Path=[wrd_Stop]}"
+                            Command="{Binding ButtonCommand}"
+                            CommandParameter="STOP"/>
+                <Button Grid.Column="4" x:Name="btnReset" FontSize="30" FontWeight="Bold"
+                            Background="#FF303030" Foreground="WhiteSmoke"
+                            Content="{Binding Source={StaticResource DR}, Path=[wrd_Reset]}"
+                            Command="{Binding ButtonCommand}"
+                            CommandParameter="RESET"/>
+                <Button Grid.Column="5" x:Name="btnExit" FontSize="30" FontWeight="Bold"
+                            Background="#FF303030" Foreground="WhiteSmoke"
+                            Content="{Binding Source={StaticResource DR}, Path=[wrd_Exit]}"
+                            Command="{Binding ButtonCommand}"
+                            CommandParameter="EXIT"/>
+                <Button Grid.Column="6" x:Name="btnList"
+                        Background="#FF303030" Foreground="WhiteSmoke">
+                    <Image Source="/Images/List.png" Stretch="Uniform" Height="60" />
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click" >
+                            <BeginStoryboard Storyboard="{StaticResource OpenRightSideBar}"/>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Grid>
+        </Grid>
+
+        <StackPanel x:Name="LeftsidePanel" HorizontalAlignment="Left"
+                    Margin="{Binding ElementName=LeftPropertiesPanel, Path=Width, Converter={StaticResource LeftMarginConverter}}">
+            <StackPanel.RenderTransform>
+                <TranslateTransform />
+            </StackPanel.RenderTransform>
+            <StackPanel Orientation="Horizontal" Margin="-300,0,0,0">
+                <StackPanel Orientation="Vertical" Background="#E0303030">                    
+                    <Grid x:Name="LeftPropertiesPanel" Width="300" Height="{Binding Height, ElementName=TopWindow}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.Resources>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Width" Value="250" />
+                                <Setter Property="Margin" Value="0,15,0,15" />
+                            </Style>
+                        </Grid.Resources>
+                        <!--LeftSideBar의 Button 설정 통합 정의-->
+                        <TextBlock Text="Setup" Grid.Row="0" FontWeight="Bold" Foreground ="WhiteSmoke" HorizontalAlignment="Center" Margin="0,5,0,5"
+                                   FontSize="20" />
+                        <Button Grid.Row="1" x:Name="btnRecipe" Margin="10,2,10,2"
+                            Background="#FF151515" Foreground="WhiteSmoke"                           
+                            Command="{Binding NavigateCommand}"
+                            CommandParameter="Views/MainUI/viewRecipe.xaml">
+                            <Button.Triggers>
+                                <EventTrigger RoutedEvent="Button.Click" >
+                                    <BeginStoryboard Storyboard="{StaticResource CloseLeftSideBar}"/>
+                                </EventTrigger>
+                            </Button.Triggers>                            
+                            <StackPanel>
+                                <TextBlock Text="{Binding Source={StaticResource DR}, Path=[wrd_Recipe]}"
+                                           FontSize="20" Foreground="WhiteSmoke" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Source={StaticResource DR}, Path=[tool_Recipe]}"
+                                           FontSize="15" Foreground="LightGray"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Grid.Row="2" x:Name="btnManual" Margin="10,2,10,2"
+                            Background="#FF151515" Foreground="WhiteSmoke"                           
+                            Command="{Binding NavigateCommand}"
+                            CommandParameter="Views/MainUI/viewRecipe.xaml">
+                            <Button.Triggers>
+                                <EventTrigger RoutedEvent="Button.Click" >
+                                    <BeginStoryboard Storyboard="{StaticResource CloseLeftSideBar}"/>
+                                </EventTrigger>
+                            </Button.Triggers>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Source={StaticResource DR}, Path=[wrd_Manual]}"
+                                           FontSize="20" Foreground="WhiteSmoke" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Source={StaticResource DR}, Path=[tool_Recipe]}"
+                                           FontSize="15" Foreground="LightGray"/>
+                            </StackPanel>
+                        </Button>                        
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel.Triggers>               
+                <EventTrigger RoutedEvent="StackPanel.MouseLeftButtonDown">
+                    <BeginStoryboard Storyboard="{StaticResource CloseLeftSideBar}"/>
+                </EventTrigger>                
+            </StackPanel.Triggers>
+        </StackPanel>
+
+        <StackPanel x:Name="RightsidePanel" HorizontalAlignment="Right"
+                    Margin="{Binding ElementName=RightPropertiesPanel, Path=Width, Converter={StaticResource RightMarginConverter}}">
+            <StackPanel.RenderTransform>
+                <TranslateTransform />
+            </StackPanel.RenderTransform>
+            <StackPanel Orientation="Horizontal" Margin="0,0,-300,0">
+                <StackPanel Orientation="Vertical" Background="#E0303030">
+                    <Grid x:Name="RightPropertiesPanel" Width="300" Height="{Binding Height, ElementName=TopWindow}">
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel.Triggers>
+                <EventTrigger RoutedEvent="StackPanel.MouseLeftButtonDown">
+                    <BeginStoryboard Storyboard="{StaticResource CloseRightSideBar}"/>
+                </EventTrigger>
+            </StackPanel.Triggers>
+        </StackPanel>
+    </Grid>
+</Window>

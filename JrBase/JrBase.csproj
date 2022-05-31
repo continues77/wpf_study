@@ -1,0 +1,86 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\close.png" />
+    <None Remove="Images\delete.png" />
+    <None Remove="Images\down-arrow.png" />
+    <None Remove="Images\Down.png" />
+    <None Remove="Images\enter.png" />
+    <None Remove="Images\Home.png" />
+    <None Remove="Images\Index.png" />
+    <None Remove="Images\Index_.png" />
+    <None Remove="Images\Index__.png" />
+    <None Remove="Images\info.png" />
+    <None Remove="Images\JRem_Logo.png" />
+    <None Remove="Images\Left-arrow.png" />
+    <None Remove="Images\LeftArrow.png" />
+    <None Remove="Images\list.png" />
+    <None Remove="Images\MainIcon.ico" />
+    <None Remove="Images\Question.png" />
+    <None Remove="Images\Right-arrow.png" />
+    <None Remove="Images\RightArrow.png" />
+    <None Remove="Images\Setup.png" />
+    <None Remove="Images\Stop.png" />
+    <None Remove="Images\up-arrow.png" />
+    <None Remove="Images\Up.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Languages\AppLanguage.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AppLanguage.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Languages\AppLanguage.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppLanguage.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="ViewModels\SetUI\" />
+    <Folder Include="Views\SetUI\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\close.png" />
+    <Resource Include="Images\delete.png" />
+    <Resource Include="Images\down-arrow.png" />
+    <Resource Include="Images\Down.png" />
+    <Resource Include="Images\enter.png" />
+    <Resource Include="Images\Home.png" />
+    <Resource Include="Images\Index.png" />
+    <Resource Include="Images\Index_.png" />
+    <Resource Include="Images\Index__.png" />
+    <Resource Include="Images\info.png" />
+    <Resource Include="Images\JRem_Logo.png" />
+    <Resource Include="Images\Left-arrow.png" />
+    <Resource Include="Images\LeftArrow.png" />
+    <Resource Include="Images\list.png" />
+    <Resource Include="Images\MainIcon.ico" />
+    <Resource Include="Images\Question.png" />
+    <Resource Include="Images\Right-arrow.png" />
+    <Resource Include="Images\RightArrow.png" />
+    <Resource Include="Images\Setup.png" />
+    <Resource Include="Images\Stop.png" />
+    <Resource Include="Images\up-arrow.png" />
+    <Resource Include="Images\Up.png" />
+  </ItemGroup>
+
+</Project>
